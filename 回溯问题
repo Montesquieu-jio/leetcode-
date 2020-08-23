@@ -1,0 +1,30 @@
+这里是剑指offer中有关树的内容
+剑指offer33 二叉搜索树的后序遍历序列
+剑指offer34 二叉树中和为某一值的路径
+剑指offer35 输入一棵二叉搜索树，将该二叉搜索树转换成一个排序的循环双向链表。 树中节点的左指针需要指向前驱，树中节点的右指针需要指向后继。还需要返回链表中的第一个节点的指针。
+offer33：
+/**
+ * 剑指offer33 二叉搜索树的后序遍历序列
+ * 方法1：递归分治
+ */
+public class offer33 {
+    //递归
+    public boolean verifyPostrorder(int[] postorder){
+        return recur(postorder,0,postorder.length-1);
+    }
+    /**
+     *用来判断区间[i,j]之间是否是后序遍历
+     * 如果是后序遍历区间可以分为三部分[i,m-1],[m,j-1],[j],最后一个j是当前的根节点
+     * [i,m-1]区间的值一定都比 j 中的值要小。[m,j-1]中的值要比 j 位置的值要比大
+     */
+    public static boolean recur(int[] postorder,int i,int j){
+        if(i>=j) return true;
+        int p = i; //设置指针
+        while(postorder[p]<postorder[j]) p++;
+        int m = p;   //m是第一个大于postorder[j]的值
+        while(postorder[p]>postorder[j]) p++;
+        return p==j && recur(postorder,i,m-1) && recur(postorder,m,j-1);
+    }
+}
+           
+           
